@@ -1,4 +1,14 @@
 package com.solvd.university.dao;
 
-public interface IExamDAO extends IBaseDao {
+import com.solvd.university.bin.Exam;
+
+public interface IExamDAO extends IBaseDAO<Exam> {
+
+    Exam getEntityById(int id);
+
+    void saveEntity(Exam entity);
+
+    void updateEntity(Exam entity);
+
+    void removeEntity(Exam id);
 }

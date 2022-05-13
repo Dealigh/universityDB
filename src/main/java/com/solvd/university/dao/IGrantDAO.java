@@ -1,4 +1,14 @@
 package com.solvd.university.dao;
 
-public interface IGrantDAO extends IBaseDao{
+import com.solvd.university.bin.Grant;
+
+public interface IGrantDAO extends IBaseDAO<Grant> {
+
+    Grant getEntityById(int id);
+
+    void saveEntity(Grant entity);
+
+    void updateEntity(Grant entity);
+
+    void removeEntity(int id);
 }

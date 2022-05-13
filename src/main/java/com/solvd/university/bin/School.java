@@ -29,7 +29,7 @@ public class School {
         this.price = price;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 

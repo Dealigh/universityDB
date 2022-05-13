@@ -3,7 +3,7 @@ package com.solvd.university.bin;
 public class Grant {
     private int id, percentageGrant;
 
-    public Grant (int id, int percentageGrant) {
+    public Grant(int id, int percentageGrant) {
         this.id = id;
         this.percentageGrant = percentageGrant;
     }
@@ -16,7 +16,7 @@ public class Grant {
         this.id = id;
     }
 
-    public int getPercentageGrant(){
+    public int getPercentageGrant() {
         return percentageGrant;
     }
 

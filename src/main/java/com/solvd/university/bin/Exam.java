@@ -30,7 +30,7 @@ public class Exam {
         this.note = note;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         return date;
     }
 
