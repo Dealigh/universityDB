@@ -1,4 +1,4 @@
-package com.solvd.university.service;
+package com.solvd.university.utils;
 
 public class DbException extends RuntimeException {
     private static final long serialVersionUID = 1L;
