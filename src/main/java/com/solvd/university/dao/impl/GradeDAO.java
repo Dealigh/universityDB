@@ -14,7 +14,9 @@ import java.sql.Statement;
 import static com.solvd.university.utils.Instantiation.instantiateGrade;
 
 public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
-    public static final String SELECT_GRADE_ID = "SELECT * FROM Grade WHERE Id = ?";
+
+    public GradeDAO(){
+    }
 
     @Override
     public Grade getEntityById(int id) {
@@ -31,11 +33,9 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
                 return grade;
             }
             return null;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
             ConnectionPool.closeResultSet(rs);
         }
@@ -45,11 +45,7 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
     public void saveEntity(Grade obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "INSERT INTO grade "
-                            + "(Name, Optional, Title, Internship)"
-                            + "VALUES "
-                            + "(?, ?, ?, ?)",
+            st = getConnection().prepareStatement(INSERT_GRADE_ID,
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getName());
@@ -66,15 +62,12 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
                     obj.setId(id);
                 }
                 ConnectionPool.closeResultSet(rs);
-            }
-            else {
+            } else {
                 throw new DbException(ERROR_MESSAGE);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
@@ -83,10 +76,7 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
     public void updateEntity(Grade obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "UPDATE exam "
-                            + "SET Name = ?, Optional = ?, Title = ?, Internship = ? "
-                            + "WHERE Id = ?");
+            st = getConnection().prepareStatement(UPDATE_GRADE_ID);
 
             st.setString(1, obj.getName());
             st.setBoolean(2, obj.getOptional());
@@ -94,11 +84,9 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
             st.setObject(4, obj.getInternship());
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
@@ -107,18 +95,27 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
     public void removeEntity(int id) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement("DELETE FROM exam WHERE Id = ?");
+            st = getConnection().prepareStatement(DELETE_GRADE_ID);
 
             st.setInt(1, id);
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
+
+
+    public static final String SELECT_GRADE_ID = "SELECT * FROM Grade WHERE Id = ?";
+    public static final String DELETE_GRADE_ID = "DELETE FROM Grade WHERE Id = ?";
+    public static final String INSERT_GRADE_ID = "INSERT INTO Grade "
+            + "(Name, Optional, Title, Internship)"
+            + "VALUES "
+            + "(?, ?, ?, ?)";
+    public static final String UPDATE_GRADE_ID = "UPDATE Grade "
+            + "SET Name = ?, Optional = ?, Title = ?, Internship = ? "
+            + "WHERE Id = ?";
 }
 

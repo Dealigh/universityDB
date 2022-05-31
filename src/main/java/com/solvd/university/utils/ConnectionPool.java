@@ -8,14 +8,13 @@ import java.util.Properties;
 
 public class ConnectionPool {
 
-    private static Connection conn = null;
-
-    private static ConnectionPool dataSource;
     static Properties property = loadProperties();
     private static final String DATABASE = property.getProperty("nameDB");
     private static final String URL = property.getProperty("url") + "?useSSL=false";
     private static final String USER = property.getProperty("user");
     private static final String PASSWORD = property.getProperty("password");
+    private static Connection conn = null;
+    private static ConnectionPool dataSource;
 
     private ConnectionPool() {
     }
@@ -23,9 +22,8 @@ public class ConnectionPool {
     public static Connection getConnection() {
         if (conn == null) {
             try {
-                conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            }
-            catch (SQLException e) {
+                conn = DriverManager.getConnection(URL, property);
+            } catch (SQLException e) {
                 throw new DbException(e.getMessage());
             }
         }

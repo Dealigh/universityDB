@@ -55,6 +55,6 @@ public class Grant {
 
     @Override
     public String toString() {
-        return "Grant [id= " + id + ", percentageGrant= " + percentageGrant+ "]";
+        return "Grant [id= " + id + ", percentageGrant= " + percentageGrant + "]";
     }
 }

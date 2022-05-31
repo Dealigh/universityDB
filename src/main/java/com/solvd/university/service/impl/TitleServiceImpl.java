@@ -8,6 +8,7 @@ public class TitleServiceImpl implements TitleService {
 
     public TitleServiceImpl() {
     }
+
     private TitleDAO titleDAO = new TitleDAO();
 
     @Override

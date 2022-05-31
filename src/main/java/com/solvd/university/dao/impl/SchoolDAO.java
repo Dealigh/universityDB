@@ -17,8 +17,6 @@ import static com.solvd.university.utils.Instantiation.instantiateTitle;
 
 public class SchoolDAO extends AbstractDAO implements IBaseDAO<School> {
 
-    public static final String SELECT_SCHOOL_ID = "SELECT * FROM School WHERE Id = ?";
-
     public SchoolDAO() {
 
     }
@@ -39,11 +37,9 @@ public class SchoolDAO extends AbstractDAO implements IBaseDAO<School> {
                 return school;
             }
             return null;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
             ConnectionPool.closeResultSet(rs);
         }
@@ -53,11 +49,7 @@ public class SchoolDAO extends AbstractDAO implements IBaseDAO<School> {
     public void saveEntity(School obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "INSERT INTO school "
-                            + "(Id, Price, Name, Title)"
-                            + "VALUES "
-                            + "(?, ?, ?, ?)",
+            st = getConnection().prepareStatement(INSERT_SCHOOL_ID,
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getId());
@@ -74,15 +66,12 @@ public class SchoolDAO extends AbstractDAO implements IBaseDAO<School> {
                     obj.setId(id);
                 }
                 ConnectionPool.closeResultSet(rs);
-            }
-            else {
+            } else {
                 throw new DbException(ERROR_MESSAGE);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
@@ -91,21 +80,16 @@ public class SchoolDAO extends AbstractDAO implements IBaseDAO<School> {
     public void updateEntity(School obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "UPDATE school "
-                            + "SET Price = ?, Name = ? "
-                            + "WHERE Id = ?");
+            st = getConnection().prepareStatement(UPDATE_SCHOOL_ID);
 
             st.setInt(1, obj.getId());
             st.setInt(2, obj.getPrice());
             st.setString(3, obj.getName());
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
@@ -114,17 +98,25 @@ public class SchoolDAO extends AbstractDAO implements IBaseDAO<School> {
     public void removeEntity(int id) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement("DELETE FROM exam WHERE Id = ?");
+            st = getConnection().prepareStatement(DELETE_SCHOOL_ID);
 
             st.setInt(1, id);
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
+
+    public static final String SELECT_SCHOOL_ID = "SELECT * FROM School WHERE Id = ?";
+    public static final String DELETE_SCHOOL_ID = "DELETE FROM School WHERE Id = ?";
+    public static final String UPDATE_SCHOOL_ID = "UPDATE school "
+            + "SET Price = ?, Name = ? "
+            + "WHERE Id = ?";
+    public static final String INSERT_SCHOOL_ID = "INSERT INTO School "
+            + "(Id, Price, Name, Title)"
+            + "VALUES "
+            + "(?, ?, ?, ?)";
 }

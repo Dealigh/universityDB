@@ -15,6 +15,14 @@ import static com.solvd.university.utils.Instantiation.instantiateTitle;
 
 public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     public static final String SELECT_TITLE_ID = "SELECT * FROM Title WHERE Id = ?";
+    public static final String INSERT_TITLE_ID = "INSERT INTO Title "
+            + "(id, name, schoolsId)"
+            + "VALUES "
+            + "(?, ?, ?)";
+    public static final String UPDATE_TITLE_ID = "UPDATE Title "
+                            + "SET id = ?, name = ?, schoolsId = ?"
+                            + "WHERE Id = ?";
+    public static final String DELETE_TITLE_ID = "DELETE FROM Title WHERE Id = ?";
 
     @Override
     public Title getEntityById(int id) {
@@ -43,11 +51,7 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     public void saveEntity(Title obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "INSERT INTO Title "
-                            + "(id, schoolId, name)"
-                            + "VALUES "
-                            + "(?, ?, ?)",
+            st = getConnection().prepareStatement(INSERT_TITLE_ID,
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getId());
@@ -77,10 +81,7 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     public void updateEntity(Title obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "UPDATE Title "
-                            + "SET id = ?, schoolId = ?, Name = ? "
-                            + "WHERE Id = ?");
+            st = getConnection().prepareStatement(UPDATE_TITLE_ID);
 
             st.setInt(1, obj.getSchoolId());
             st.setString(2, obj.getName());
@@ -97,7 +98,7 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     public void removeEntity(int id) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement("DELETE FROM Title WHERE Id = ?");
+            st = getConnection().prepareStatement(DELETE_TITLE_ID);
 
             st.setInt(1, id);
 

@@ -51,7 +51,7 @@ public class School {
     }
 
     public String getGrades() {
-        for(int i = 0; i < grades.size(); i++) {
+        for (int i = 0; i < grades.size(); i++) {
             return "";
         }
         return "";

@@ -7,7 +7,7 @@ public class Exam {
     private Date date;
     private Grade grade;
 
-    public Exam(){
+    public Exam() {
     }
 
     public Exam(int id, int note, Date date, Grade grade) {

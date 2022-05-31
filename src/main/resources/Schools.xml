@@ -1,0 +1,22 @@
+<Schools>
+    <School id = "1">
+        <price>15000</price>
+        <name>Medicine</name>
+        <title>Medic</title>
+    </School>
+    <School id = "2">
+        <price>10000</price>
+        <name>Engineering</name>
+        <title>Civil Engineer</title>
+    </School>
+    <School id = "3">
+        <price>7500</price>
+        <name>Laws</name>
+        <title>Lawyer</title>
+    </School>
+    <School id = "4">
+        <price>7500</price>
+        <name>Economy</name>
+        <title>Accountant</title>
+    </School>
+</Schools>

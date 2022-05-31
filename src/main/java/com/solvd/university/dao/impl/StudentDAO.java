@@ -18,14 +18,14 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
     public StudentDAO() {
 
     }
+
     @Override
     public Student getEntityById(int id) {
 
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = getConnection().prepareStatement(
-                    "SELECT * FROM Student WHERE Id = ?");
+            st = getConnection().prepareStatement(SELECT_STUDENT_ID);
 
             st.setInt(1, id);
             rs = st.executeQuery();
@@ -34,11 +34,9 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
                 return student;
             }
             return null;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
             ConnectionPool.closeResultSet(rs);
         }
@@ -48,11 +46,7 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
     public void saveEntity(Student obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "INSERT INTO student "
-                            + "(Name, Age, careerPercentage, Residence)"
-                            + "VALUES "
-                            + "(?, ?, ?, ?)",
+            st = getConnection().prepareStatement(INSERT_STUDENT_ID,
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, obj.getName());
@@ -69,15 +63,12 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
                     obj.setId(id);
                 }
                 ConnectionPool.closeResultSet(rs);
-            }
-            else {
+            } else {
                 throw new DbException(ERROR_MESSAGE);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
@@ -86,10 +77,7 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
     public void updateEntity(Student obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "UPDATE exam "
-                            + "SET Name = ?, Age = ?, CareerPercentage = ?, Residence = ? "
-                            + "WHERE Id = ?");
+            st = getConnection().prepareStatement(UPDATE_STUDENT_ID);
 
             st.setString(1, obj.getName());
             st.setInt(2, obj.getAge());
@@ -97,11 +85,9 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
             st.setString(4, obj.getResidence().getName());
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
@@ -110,17 +96,25 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
     public void removeEntity(int id) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement("DELETE FROM exam WHERE Id = ?");
+            st = getConnection().prepareStatement(DELETE_STUDENT_ID);
 
             st.setInt(1, id);
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
+
+    public static final String SELECT_STUDENT_ID = "SELECT * FROM Student WHERE Id = ?";
+    public static final String DELETE_STUDENT_ID = "DELETE FROM Student WHERE Id = ?";
+    public static final String UPDATE_STUDENT_ID = "UPDATE Student "
+            + "SET Name = ?, Age = ?, CareerPercentage = ?, Residence = ? "
+            + "WHERE Id = ?";
+    public static final String INSERT_STUDENT_ID = "INSERT INTO Student "
+            + "(Name, Age, careerPercentage, Residence)"
+            + "VALUES "
+            + "(?, ?, ?, ?)";
 }

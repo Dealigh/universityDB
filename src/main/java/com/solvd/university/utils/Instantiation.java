@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class Instantiation {
 
-    private Instantiation () {
+    private Instantiation() {
     }
 
     public static Exam instantiateExam(ResultSet rs) throws SQLException {

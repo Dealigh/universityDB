@@ -10,7 +10,6 @@ import java.sql.*;
 import static com.solvd.university.utils.Instantiation.instantiateExam;
 
 public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
-    public static final String DELETE_EXAM_ID = "DELETE FROM exam WHERE Id = ?";
 
     public ExamDAO() {
     }
@@ -21,11 +20,7 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = getConnection().prepareStatement(
-                    "SELECT Exam "
-                            + "FROM exam INNER JOIN grade "
-                            + "ON exam.GradeId = grade.Id "
-                            + "WHERE exam.Id = ?");
+            st = getConnection().prepareStatement(SELECT_EXAM);
 
             st.setInt(1, id);
             rs = st.executeQuery();
@@ -34,11 +29,9 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
                 return exam;
             }
             return null;
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
             ConnectionPool.closeResultSet(rs);
         }
@@ -48,11 +41,7 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
     public void saveEntity(Exam obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "INSERT INTO exam "
-                            + "(Note, Grade, Date)"
-                            + "VALUES "
-                            + "(?, ?, ?)",
+            st = getConnection().prepareStatement(INSERT_EXAM,
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getNote());
@@ -68,15 +57,12 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
                     obj.setId(id);
                 }
                 ConnectionPool.closeResultSet(rs);
-            }
-            else {
+            } else {
                 throw new DbException(ERROR_MESSAGE);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
@@ -85,10 +71,7 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
     public void updateEntity(Exam obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(
-                    "UPDATE exam "
-                            + "SET Note = ?, Grade = ?, Date = ? "
-                            + "WHERE Id = ?");
+            st = getConnection().prepareStatement(UPDATE_EXAM);
 
             st.setInt(1, obj.getId());
             st.setInt(2, obj.getNote());
@@ -96,11 +79,9 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
             st.setDate(3, new java.sql.Date(obj.getDate().getTime()));
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
@@ -114,12 +95,24 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
             st.setInt(1, id);
 
             st.executeUpdate();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             ConnectionPool.closeStatement(st);
         }
     }
+
+
+    public static final String DELETE_EXAM_ID = "DELETE FROM exam WHERE Id = ?";
+    public static final String SELECT_EXAM = "SELECT Exam "
+            + "FROM exam INNER JOIN grade "
+            + "ON exam.GradeId = grade.Id "
+            + "WHERE exam.Id = ?";
+    public static final String INSERT_EXAM = "INSERT INTO Exam "
+            + "(Note, Grade, Date)"
+            + "VALUES "
+            + "(?, ?, ?)";
+    public static final String UPDATE_EXAM = "UPDATE Exam "
+            + "SET Note = ?, Grade = ?, Date = ? "
+            + "WHERE Id = ?";
 }

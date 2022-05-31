@@ -12,7 +12,7 @@ public class Grade {
 
     private List<Student> students = new ArrayList<>();
 
-    public Grade()  {
+    public Grade() {
 
     }
 

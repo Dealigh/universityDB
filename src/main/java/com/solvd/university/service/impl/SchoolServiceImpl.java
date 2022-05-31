@@ -6,17 +6,18 @@ import com.solvd.university.service.SchoolService;
 
 public class SchoolServiceImpl implements SchoolService {
 
+    private SchoolDAO schoolDAO = new SchoolDAO();
+
     public SchoolServiceImpl() {
     }
-    private SchoolDAO school = new SchoolDAO();
 
     @Override
     public School getSchool(int id) {
-        return school.getEntityById(id);
+        return schoolDAO.getEntityById(id);
     }
 
     @Override
     public void saveSchool(School sch) {
-        school.saveEntity(sch);
+        schoolDAO.saveEntity(sch);
     }
 }
