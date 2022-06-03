@@ -1,7 +1,7 @@
 package com.solvd.university.service.impl;
 
 import com.solvd.university.bin.Student;
-import com.solvd.university.dao.impl.StudentDAO;
+import com.solvd.university.dao.jdbcImpl.StudentDAO;
 import com.solvd.university.service.StudentService;
 
 public class StudentServiceImpl implements StudentService {

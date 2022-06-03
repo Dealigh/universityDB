@@ -1,4 +1,4 @@
-package com.solvd.university.utils;
+package com.solvd.university.utils.connectionpool;
 
 import java.io.FileInputStream;
 import java.io.IOException;

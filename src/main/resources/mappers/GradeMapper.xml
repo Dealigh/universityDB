@@ -1,0 +1,27 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
+<mapper resource="com.solvd.university.dao.IGradeDAO">
+    <resultMap type="com.solvd.university.bin.Grade"
+               id="GradeResultMap" automapping="false">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="optional" property="optional"/>
+        <association property="title" resultMap="com.solvd.university.dao.ITitleDAO.TitleResultMap"/>
+    </resultMap>
+
+    <select id="getEntityById">
+        SELECT * WHERE ID like #{id}
+    </select>
+
+    <insert id="saveEntity">
+        insert values(null, #{name0}, #{optional}, #{title})
+    </insert>
+
+    <delete id="removeEntity" parameterType="int">
+        delete * where id = #{id}
+    </delete>
+
+    <update id="updateEntity">
+        update * set name = #{name}, optional = #{optional}, title = #{title} where id = #{id}
+    </update>
+</mapper>

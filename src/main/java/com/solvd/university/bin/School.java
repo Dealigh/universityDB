@@ -1,7 +1,9 @@
 package com.solvd.university.bin;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+@XmlRootElement
 public class School {
     private Integer id, price;
     private String name;

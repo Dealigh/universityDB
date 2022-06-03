@@ -1,42 +1,46 @@
-package com.solvd.university.dao.impl;
+package com.solvd.university.dao.jdbcImpl;
 
-import com.solvd.university.bin.Student;
-import com.solvd.university.bin.Title;
+import com.solvd.university.bin.Exam;
 import com.solvd.university.dao.IBaseDAO;
-import com.solvd.university.utils.ConnectionPool;
-import com.solvd.university.utils.DbException;
+import com.solvd.university.dao.IExamDAO;
+import com.solvd.university.utils.connectionpool.ConnectionPool;
+import com.solvd.university.utils.connectionpool.DbException;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-import static com.solvd.university.utils.Instantiation.instantiateTitle;
+import static com.solvd.university.utils.Instantiation.instantiateExam;
 
-public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
-    public static final String SELECT_TITLE_ID = "SELECT * FROM Title WHERE Id = ?";
-    public static final String INSERT_TITLE_ID = "INSERT INTO Title "
-            + "(id, name, schoolsId)"
+public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
+
+    public static final String DELETE_EXAM_ID = "DELETE FROM exam WHERE Id = ?";
+    public static final String SELECT_EXAM = "SELECT Exam "
+            + "FROM exam INNER JOIN grade "
+            + "ON exam.GradeId = grade.Id "
+            + "WHERE exam.Id = ?";
+    public static final String INSERT_EXAM = "INSERT INTO Exam "
+            + "(Note, Grade, Date)"
             + "VALUES "
             + "(?, ?, ?)";
-    public static final String UPDATE_TITLE_ID = "UPDATE Title "
-                            + "SET id = ?, name = ?, schoolsId = ?"
-                            + "WHERE Id = ?";
-    public static final String DELETE_TITLE_ID = "DELETE FROM Title WHERE Id = ?";
+    public static final String UPDATE_EXAM = "UPDATE Exam "
+            + "SET Note = ?, Grade = ?, Date = ? "
+            + "WHERE Id = ?";
+
+    public ExamDAO() {
+    }
 
     @Override
-    public Title getEntityById(int id) {
+    public Exam getEntityById(int id) {
 
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = getConnection().prepareStatement(SELECT_TITLE_ID);
+            st = getConnection().prepareStatement(SELECT_EXAM);
 
             st.setInt(1, id);
             rs = st.executeQuery();
             if (rs.next()) {
-                Title title = instantiateTitle(rs);
-                return title;
+                Exam exam = instantiateExam(rs);
+                return exam;
             }
             return null;
         } catch (SQLException e) {
@@ -48,15 +52,15 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     }
 
     @Override
-    public void saveEntity(Title obj) {
+    public void saveEntity(Exam obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(INSERT_TITLE_ID,
+            st = getConnection().prepareStatement(INSERT_EXAM,
                     Statement.RETURN_GENERATED_KEYS);
 
-            st.setInt(1, obj.getId());
-            st.setInt(2, obj.getSchoolId());
-            st.setString(3, obj.getName());
+            st.setInt(1, obj.getNote());
+            st.setString(2, obj.getGrade().getName());
+            st.setDate(3, new java.sql.Date(obj.getDate().getTime()));
 
             int rowsAffected = st.executeUpdate();
 
@@ -78,13 +82,15 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     }
 
     @Override
-    public void updateEntity(Title obj) {
+    public void updateEntity(Exam obj) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(UPDATE_TITLE_ID);
+            st = getConnection().prepareStatement(UPDATE_EXAM);
 
-            st.setInt(1, obj.getSchoolId());
-            st.setString(2, obj.getName());
+            st.setInt(1, obj.getId());
+            st.setInt(2, obj.getNote());
+            st.setString(2, obj.getGrade().getName());
+            st.setDate(3, new java.sql.Date(obj.getDate().getTime()));
 
             st.executeUpdate();
         } catch (SQLException e) {
@@ -98,7 +104,7 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     public void removeEntity(int id) {
         PreparedStatement st = null;
         try {
-            st = getConnection().prepareStatement(DELETE_TITLE_ID);
+            st = getConnection().prepareStatement(DELETE_EXAM_ID);
 
             st.setInt(1, id);
 
@@ -110,4 +116,3 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
         }
     }
 }
-

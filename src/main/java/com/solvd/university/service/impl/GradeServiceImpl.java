@@ -1,7 +1,7 @@
 package com.solvd.university.service.impl;
 
 import com.solvd.university.bin.Grade;
-import com.solvd.university.dao.impl.GradeDAO;
+import com.solvd.university.dao.jdbcImpl.GradeDAO;
 import com.solvd.university.service.GradeService;
 
 public class GradeServiceImpl implements GradeService {

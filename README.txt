@@ -6,3 +6,4 @@ UNIVERSITY. Project for LABA SOLVD COURSE. SQL part
 1.3 "Service & Impl added": Added Service and Service Implementation folders and classes/interfaces.
 1.4 "XML & Script": Added XML and DB Script. Updated DAOs & Service Impl folders
 1.5 "POM Jxb": Addex Jaxb to pom.
+1.6 "MyBatis": Added MyBatis.

@@ -1,7 +1,7 @@
 package com.solvd.university.service.impl;
 
 import com.solvd.university.bin.Title;
-import com.solvd.university.dao.impl.TitleDAO;
+import com.solvd.university.dao.jdbcImpl.TitleDAO;
 import com.solvd.university.service.TitleService;
 
 public class TitleServiceImpl implements TitleService {
