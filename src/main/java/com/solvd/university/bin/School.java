@@ -1,15 +1,11 @@
 package com.solvd.university.bin;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.List;
 
 @XmlRootElement
 public class School {
     private Integer id, price;
     private String name;
-    private List<Grade> grades = new ArrayList<>();
-    private Title title;
 
     public School() {
 
@@ -45,25 +41,6 @@ public class School {
         this.name = name;
     }
 
-    public Title getTitle() {
-        return title;
-    }
-
-    public void setTitle(Title title) {
-        this.title = title;
-    }
-
-    public String getGrades() {
-        for (Grade grade : grades) {
-            return grade.getName();
-        }
-        return "";
-    }
-
-    public void setGrades(Grade grade) {
-        this.grades.add(grade);
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -95,6 +72,6 @@ public class School {
 
     @Override
     public String toString() {
-        return "School [id= " + id + ", name= " + name + ", price= " + price + ", Asignature= " + grades + "]";
+        return "School [id= " + id + ", name= " + name + ", price= " + price + "]";
     }
 }

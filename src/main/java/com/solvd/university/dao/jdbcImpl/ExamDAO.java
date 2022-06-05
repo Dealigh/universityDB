@@ -58,7 +58,7 @@ public class ExamDAO extends AbstractDAO implements IExamDAO {
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getNote());
-            st.setString(2, obj.getGrade().getName());
+            st.setInt(2, obj.getGrade());
             st.setDate(3, new java.sql.Date(obj.getDate().getTime()));
 
             int rowsAffected = st.executeUpdate();
@@ -88,7 +88,7 @@ public class ExamDAO extends AbstractDAO implements IExamDAO {
 
             st.setInt(1, obj.getId());
             st.setInt(2, obj.getNote());
-            st.setString(2, obj.getGrade().getName());
+            st.setInt(2, obj.getGrade());
             st.setDate(3, new java.sql.Date(obj.getDate().getTime()));
 
             st.executeUpdate();

@@ -19,12 +19,12 @@ public class SchoolDAO extends AbstractDAO implements ISchoolDAO {
     public static final String SELECT_SCHOOL_ID = "SELECT * FROM Schools WHERE Id = ?";
     public static final String DELETE_SCHOOL_ID = "DELETE FROM Schools WHERE Id = ?";
     public static final String UPDATE_SCHOOL_ID = "UPDATE Schools "
-            + "SET Price = ?, Name = ? "
+            + "SET Name = ?, Price = ?"
             + "WHERE Id = ?";
     public static final String INSERT_SCHOOL_ID = "INSERT INTO Schools "
-            + "(Id, Price, Name, Title)"
+            + "(Id, Name, Price)"
             + "VALUES "
-            + "(?, ?, ?, ?)";
+            + "(?, ?, ?)";
 
     public SchoolDAO() {
     }
@@ -61,9 +61,8 @@ public class SchoolDAO extends AbstractDAO implements ISchoolDAO {
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getId());
-            st.setInt(2, obj.getPrice());
-            st.setString(3, obj.getName());
-            st.setObject(4, obj.getTitle());
+            st.setInt(3, obj.getPrice());
+            st.setString(2, obj.getName());
 
             int rowsAffected = st.executeUpdate();
 

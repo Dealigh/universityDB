@@ -31,7 +31,6 @@ public class Instantiation {
         school.setId(rs.getInt("id"));
         school.setPrice(rs.getInt("price"));
         school.setName(rs.getString("name"));
-        school.setTitle(title);
         return school;
     }
 

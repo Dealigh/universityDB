@@ -3,18 +3,17 @@ package com.solvd.university.bin;
 import java.util.Date;
 
 public class Exam {
-    private Integer id, note;
+    private Integer id, note, gradeId;
     private Date date;
-    private Grade grade;
 
     public Exam() {
     }
 
-    public Exam(int id, int note, Date date, Grade grade) {
+    public Exam(int id, int note, Date date, int grade) {
         this.id = id;
         this.note = note;
         this.date = date;
-        this.grade = grade;
+        this.gradeId = grade;
     }
 
     public int getId() {
@@ -41,12 +40,12 @@ public class Exam {
         this.date = date;
     }
 
-    public Grade getGrade() {
-        return grade;
+    public int getGrade() {
+        return gradeId;
     }
 
-    public void setGrade(Grade grade) {
-        this.grade = grade;
+    public void setGrade(int grade) {
+        this.gradeId = grade;
     }
 
     @Override
@@ -80,6 +79,6 @@ public class Exam {
 
     @Override
     public String toString() {
-        return "Exam [id= " + id + ", note= " + note + ", date= " + date + ", grade= " + grade + "]";
+        return "Exam [id= " + id + ", note= " + note + ", date= " + date + ", grade= " + gradeId + "]";
     }
 }

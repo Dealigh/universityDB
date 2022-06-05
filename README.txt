@@ -8,3 +8,4 @@ UNIVERSITY. Project for LABA SOLVD COURSE. SQL part
 1.5 "POM Jxb": Addex Jaxb to pom.
 1.6 "MyBatis": Added MyBatis.
 1.7 "Added Mappers": Added mybatis mappers.
+2.0 "Remote": Added database to remote.

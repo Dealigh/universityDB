@@ -16,7 +16,7 @@ public class TitleDAO extends AbstractDAO implements ITitleDAO {
 
     public static final String SELECT_TITLE_ID = "SELECT * FROM Title WHERE Id = ?";
     public static final String INSERT_TITLE_ID = "INSERT INTO Title "
-            + "(id, name, Schools_id)"
+            + "(id, name, schoolsId)"
             + "VALUES "
             + "(?, ?, ?)";
     public static final String UPDATE_TITLE_ID = "UPDATE Title "
