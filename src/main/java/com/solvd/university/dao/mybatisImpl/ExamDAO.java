@@ -2,26 +2,48 @@ package com.solvd.university.dao.mybatisImpl;
 
 import com.solvd.university.bin.Exam;
 import com.solvd.university.dao.IExamDAO;
+import com.solvd.university.dao.jdbcImpl.ExamDAO;
+import com.solvd.university.service.IBaseService;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class ExamDAO implements IExamDAO {
+import static com.solvd.university.utils.mybatisUtil.MyBatisUtil.*;
+
+public class ExamServiceImpl implements IExamDAO {
+    Exam exam = new Exam();
+
+    private static final String EXAM_DAO = "IExamDAO";
+    private final SqlSession session = getSession();
 
     @Override
-    public Exam getEntityById(int id) {
-        return null;
+    public void create(Exam entity) {
+        createMapper(EXAM_DAO, entity);
     }
 
     @Override
-    public void saveEntity(Exam entity) {
+    public Exam read(int id) {
+        getSession();
+        if (session != null) {
+            try {
+                String idExam = String.valueOf(id);
+                session.selectMap(EXAM_DAO + ".read", idExam);
+            } finally {
+                session.close();
+            }
+        }
+        return exam;
+    }
 
+
+    @Override
+    public void update(Exam entity) {
+        updateMapper(EXAM_DAO, entity);
     }
 
     @Override
-    public void updateEntity(Exam entity) {
-
-    }
-
-    @Override
-    public void removeEntity(int id) {
-
+    public void delete(int id) {
+        String idExam = String.valueOf(id);
+        deleteMapper(EXAM_DAO, idExam);
     }
 }

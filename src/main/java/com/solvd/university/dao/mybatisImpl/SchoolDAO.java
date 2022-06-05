@@ -2,25 +2,45 @@ package com.solvd.university.dao.mybatisImpl;
 
 import com.solvd.university.bin.School;
 import com.solvd.university.dao.ISchoolDAO;
+import com.solvd.university.dao.jdbcImpl.SchoolDAO;
+import com.solvd.university.service.IBaseService;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
-public class SchoolDAO implements ISchoolDAO {
-    @Override
-    public School getEntityById(int id) {
-        return null;
+import static com.solvd.university.utils.mybatisUtil.MyBatisUtil.*;
+
+public class SchoolServiceImpl implements ISchoolDAO {
+
+    private final SqlSession session = getSession();
+    private static final String SCHOOL_DAO = "ISchoolDAO";
+
+    public SchoolServiceImpl() {
     }
 
     @Override
-    public void saveEntity(School entity) {
-
+    public void create(School entity) {
+        createMapper(SCHOOL_DAO, entity);
     }
 
     @Override
-    public void updateEntity(School entity) {
-
+    public School read(int id) {
+        if (session != null) {
+            try {
+                session.insert(SCHOOL_DAO, id);
+            } finally {
+                session.close();
+            }
+        }
     }
 
     @Override
-    public void removeEntity(int id) {
+    public void update(School entity) {
+        updateMapper(SCHOOL_DAO, entity);
+    }
 
+    @Override
+    public void delete(int id) {
+        String idExam = String.valueOf(id);
+        deleteMapper(SCHOOL_DAO, idExam);
     }
 }
