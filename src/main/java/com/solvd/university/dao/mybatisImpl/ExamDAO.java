@@ -2,19 +2,14 @@ package com.solvd.university.dao.mybatisImpl;
 
 import com.solvd.university.bin.Exam;
 import com.solvd.university.dao.IExamDAO;
-import com.solvd.university.dao.jdbcImpl.ExamDAO;
-import com.solvd.university.service.IBaseService;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import static com.solvd.university.utils.mybatisUtil.MyBatisUtil.*;
 
-public class ExamServiceImpl implements IExamDAO {
-    Exam exam = new Exam();
+public class ExamDAO implements IExamDAO {
 
-    private static final String EXAM_DAO = "IExamDAO";
     private final SqlSession session = getSession();
+    Exam exam = new Exam();
 
     @Override
     public void create(Exam entity) {

@@ -16,6 +16,13 @@ public class Grade {
 
     }
 
+    public Grade(int id, String name, boolean optional, Title title) {
+        this.id = id;
+        this.name = name;
+        this.optional = optional;
+        this.title = title;
+    }
+
     public Grade(int id, String name, boolean optional, Title title, Internship internship) {
         this.id = id;
         this.name = name;

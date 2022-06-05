@@ -2,19 +2,16 @@ package com.solvd.university.dao.mybatisImpl;
 
 import com.solvd.university.bin.School;
 import com.solvd.university.dao.ISchoolDAO;
-import com.solvd.university.dao.jdbcImpl.SchoolDAO;
-import com.solvd.university.service.IBaseService;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
 import static com.solvd.university.utils.mybatisUtil.MyBatisUtil.*;
 
-public class SchoolServiceImpl implements ISchoolDAO {
+public class SchoolDAO implements ISchoolDAO {
 
     private final SqlSession session = getSession();
-    private static final String SCHOOL_DAO = "ISchoolDAO";
+    private School school = new School();
 
-    public SchoolServiceImpl() {
+    public SchoolDAO() {
     }
 
     @Override
@@ -24,13 +21,16 @@ public class SchoolServiceImpl implements ISchoolDAO {
 
     @Override
     public School read(int id) {
+        getSession();
         if (session != null) {
             try {
-                session.insert(SCHOOL_DAO, id);
+                String idExam = String.valueOf(id);
+                session.selectMap(SCHOOL_DAO + ".read", idExam);
             } finally {
                 session.close();
             }
         }
+        return school;
     }
 
     @Override

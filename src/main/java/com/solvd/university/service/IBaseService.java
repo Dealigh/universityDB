@@ -1,9 +1,12 @@
 package com.solvd.university.service;
 
-import com.solvd.university.bin.Student;
+public interface IBaseService<T> {
 
-public interface IStudentService {
-    void saveStudent(Student student);
-    void updateStudent(Student student);
-    void removeStudent(int id);
+    void createEntity(T entity);
+
+    T readEntity(int id);
+
+    void updateEntity(T entity);
+
+    void deleteEntity(int id);
 }

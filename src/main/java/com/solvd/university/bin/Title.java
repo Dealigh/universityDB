@@ -1,15 +1,15 @@
 package com.solvd.university.bin;
 
 public class Title {
-    private Integer id, schoolId;
+    private Integer id, schoolsId;
     private String name;
 
     public Title() {
     }
 
-    public Title(int id, int schoolId, String name) {
+    public Title(int id, String name, int schoolsId) {
         this.id = id;
-        this.schoolId = schoolId;
+        this.schoolsId = schoolsId;
         this.name = name;
     }
 
@@ -21,12 +21,12 @@ public class Title {
         this.id = id;
     }
 
-    public int getSchoolId() {
-        return schoolId;
+    public int getSchoolsId() {
+        return schoolsId;
     }
 
-    public void setSchoolId(int schoolId) {
-        this.schoolId = schoolId;
+    public void setSchoolsId(int schoolsId) {
+        this.schoolsId = schoolsId;
     }
 
     public String getName() {
@@ -68,6 +68,6 @@ public class Title {
 
     @Override
     public String toString() {
-        return "Title [id= " + id + ", name= " + name + ", schoolId= " + schoolId + "]";
+        return "Title [id= " + id + ", name= " + name + ", schoolId= " + schoolsId + "]";
     }
 }

@@ -2,17 +2,16 @@ package com.solvd.university.dao.mybatisImpl;
 
 import com.solvd.university.bin.Grade;
 import com.solvd.university.dao.IGradeDAO;
-import com.solvd.university.dao.jdbcImpl.GradeDAO;
 import org.apache.ibatis.session.SqlSession;
 
 import static com.solvd.university.utils.mybatisUtil.MyBatisUtil.*;
 
-public class GradeServiceImpl implements IGradeDAO {
+public class GradeDAO implements IGradeDAO {
 
     private final SqlSession session = getSession();
-    private static final String GRADE_DAO = "IGradeDAO";
+    private Grade grade = new Grade();
 
-    GradeServiceImpl() {
+    GradeDAO() {
     }
 
     @Override
@@ -22,13 +21,16 @@ public class GradeServiceImpl implements IGradeDAO {
 
     @Override
     public Grade read(int id) {
+        getSession();
         if (session != null) {
             try {
-
+                String idExam = String.valueOf(id);
+                session.selectMap(GRADE_DAO + ".read", idExam);
             } finally {
                 session.close();
             }
         }
+        return grade;
     }
 
     @Override

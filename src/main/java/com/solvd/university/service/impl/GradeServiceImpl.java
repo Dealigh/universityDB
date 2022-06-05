@@ -2,21 +2,32 @@ package com.solvd.university.service.impl;
 
 import com.solvd.university.bin.Grade;
 import com.solvd.university.dao.jdbcImpl.GradeDAO;
-import com.solvd.university.service.GradeService;
+import com.solvd.university.service.IBaseService;
 
-public class GradeServiceImpl implements GradeService {
-    GradeDAO gradeDAO = new GradeDAO();
+public class GradeServiceImpl implements IBaseService<Grade> {
 
-    GradeServiceImpl() {
+    private GradeDAO gradeDAO = new GradeDAO();
+
+    public GradeServiceImpl() {
     }
 
     @Override
-    public Grade getGradeId(int id) {
-        return gradeDAO.getEntityById(id);
+    public void createEntity(Grade entity) {
+        gradeDAO.create(entity);
     }
 
     @Override
-    public void saveGrade(Grade grade) {
-        gradeDAO.saveEntity(grade);
+    public Grade readEntity(int id) {
+        return gradeDAO.read(id);
+    }
+
+    @Override
+    public void updateEntity(Grade entity) {
+        gradeDAO.update(entity);
+    }
+
+    @Override
+    public void deleteEntity(int id) {
+        gradeDAO.delete(id);
     }
 }

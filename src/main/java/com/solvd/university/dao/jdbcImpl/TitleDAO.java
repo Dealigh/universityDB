@@ -1,7 +1,7 @@
 package com.solvd.university.dao.jdbcImpl;
 
 import com.solvd.university.bin.Title;
-import com.solvd.university.dao.IBaseDAO;
+import com.solvd.university.dao.ITitleDAO;
 import com.solvd.university.utils.connectionpool.ConnectionPool;
 import com.solvd.university.utils.connectionpool.DbException;
 
@@ -12,20 +12,20 @@ import java.sql.Statement;
 
 import static com.solvd.university.utils.Instantiation.instantiateTitle;
 
-public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
+public class TitleDAO extends AbstractDAO implements ITitleDAO {
 
     public static final String SELECT_TITLE_ID = "SELECT * FROM Title WHERE Id = ?";
     public static final String INSERT_TITLE_ID = "INSERT INTO Title "
-            + "(id, name, schoolsId)"
+            + "(id, name, Schools_id)"
             + "VALUES "
             + "(?, ?, ?)";
     public static final String UPDATE_TITLE_ID = "UPDATE Title "
-                            + "SET id = ?, name = ?, schoolsId = ?"
-                            + "WHERE id = ?";
+            + "SET id = ?, name = ?, schoolsId = ?"
+            + "WHERE id = ?";
     public static final String DELETE_TITLE_ID = "DELETE FROM Title WHERE Id = ?";
 
     @Override
-    public Title getEntityById(int id) {
+    public Title read(int id) {
 
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -48,15 +48,15 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     }
 
     @Override
-    public void saveEntity(Title obj) {
+    public void create(Title obj) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(INSERT_TITLE_ID,
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setInt(1, obj.getId());
-            st.setInt(2, obj.getSchoolId());
-            st.setString(3, obj.getName());
+            st.setString(2, obj.getName());
+            st.setInt(3, obj.getSchoolsId());
 
             int rowsAffected = st.executeUpdate();
 
@@ -78,12 +78,12 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     }
 
     @Override
-    public void updateEntity(Title obj) {
+    public void update(Title obj) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(UPDATE_TITLE_ID);
 
-            st.setInt(1, obj.getSchoolId());
+            st.setInt(1, obj.getSchoolsId());
             st.setString(2, obj.getName());
 
             st.executeUpdate();
@@ -95,7 +95,7 @@ public class TitleDAO extends AbstractDAO implements IBaseDAO<Title> {
     }
 
     @Override
-    public void removeEntity(int id) {
+    public void delete(int id) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(DELETE_TITLE_ID);

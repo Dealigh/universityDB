@@ -1,11 +1,12 @@
 package com.solvd.university.dao;
 
 public interface IBaseDAO<T> {
-    T getEntityById(int id);
 
-    void saveEntity(T entity);
+    void create(T entity);
 
-    void updateEntity(T entity);
+    T read(int id);
 
-    void removeEntity(int id);
+    void update(T entity);
+
+    void delete(int id);
 }

@@ -1,27 +1,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
-<mapper resource="com.solvd.university.dao.IStudentDAO">
-    <resultMap type="com.solvd.university.bin.Student"
-               id="StudentResultMap" automapping="false">
+<mapper namespace="com.solvd.university.dao.IStudentDAO">
+    <resultMap type="com.solvd.university.bin.Student" id="StudentResultMap" autoMapping="false">
         <id column="id" property="id"/>
         <result column="age" property="age"/>
         <result column="name" property="name"/>
         <result column="careerPercent" property="careerPercent"/>
     </resultMap>
 
-    <select id="getEntityById">
+    <select id="read">
+        <![CDATA[
         SELECT * WHERE ID like #{id}
+        ]]>
     </select>
 
-    <insert id="saveEntity">
+    <insert id="create">
+        <![CDATA[
         insert values(null, #{age}, #{name}, #{careerPercent})
+        ]]>
     </insert>
 
-    <delete id="removeEntity" parameterType="int">
+    <delete id="delete" parameterType="int">
+        <![CDATA[
         delete * where id = #{id}
+        ]]>
     </delete>
 
-    <update id="updateEntity">
+    <update id="update">
+        <![CDATA[
         update * set age = #{age}, name = #{name}, careerPercent = #{careerPercent} where id = #{id}
+        ]]>
     </update>
 </mapper>

@@ -26,7 +26,7 @@ public class JaxbUtils {
     }
 
     public Object unmarshall(Object obj) {
-        try{
+        try {
             File file = new File(PATH_NAME + StringUtils.capitalize(obj.getClass().getName()) + ".xml");
             jaxbContext = JAXBContext.newInstance(Object.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();

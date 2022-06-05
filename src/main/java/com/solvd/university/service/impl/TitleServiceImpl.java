@@ -1,23 +1,35 @@
 package com.solvd.university.service.impl;
 
 import com.solvd.university.bin.Title;
-import com.solvd.university.dao.jdbcImpl.TitleDAO;
-import com.solvd.university.service.TitleService;
+import com.solvd.university.service.IBaseService;
 
-public class TitleServiceImpl implements TitleService {
+import com.solvd.university.dao.jdbcImpl.TitleDAO;
+//import com.solvd.university.dao.mybatisImpl.TitleDAO;
+
+public class TitleServiceImpl implements IBaseService<Title> {
+
+    private TitleDAO titleDAO = new TitleDAO();
 
     public TitleServiceImpl() {
     }
 
-    private TitleDAO titleDAO = new TitleDAO();
-
     @Override
-    public Title getTitle(int id) {
-        return titleDAO.getEntityById(id);
+    public void createEntity(Title entity) {
+        titleDAO.create(entity);
     }
 
     @Override
-    public void saveTitle(Title title) {
-        titleDAO.saveEntity(title);
+    public Title readEntity(int id) {
+        return titleDAO.read(id);
+    }
+
+    @Override
+    public void updateEntity(Title entity) {
+        titleDAO.update(entity);
+    }
+
+    @Override
+    public void deleteEntity(int id) {
+        titleDAO.delete(id);
     }
 }

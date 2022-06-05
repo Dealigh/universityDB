@@ -1,8 +1,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
-<mapper resource="com.solvd.university.dao.ISchoolDAO">
-    <resultMap type="com.solvd.university.bin.School"
-               id="SchoolResultMap" automapping="false">
+<mapper namespace="com.solvd.university.dao.ISchoolDAO">
+    <resultMap type="com.solvd.university.bin.School" id="SchoolResultMap" autoMapping="false">
         <id column="id" property="id"/>
         <result column="price" property="price"/>
         <result column="name" property="name"/>
@@ -10,19 +9,27 @@
         <association property="title" resultMap="com.solvd.university.dao.ITitleDAO.TitleResultMap"/>
     </resultMap>
 
-    <select id="getEntityById">
+    <select id="read">
+        <![CDATA[
         SELECT * WHERE ID like #{id}
+        ]]>
     </select>
 
-    <insert id="saveEntity">
+    <insert id="create">
+        <![CDATA[
         insert values(null, #{price}, #{name}, #{grades}, #{title})
+        ]]>
     </insert>
 
-    <delete id="removeEntity" parameterType="int">
+    <delete id="delete" parameterType="int">
+        <![CDATA[
         delete * where id = #{id}
+        ]]>
     </delete>
 
-    <update id="updateEntity">
+    <update id="update">
+        <![CDATA[
         update * set price = #{price}, name = #{name}, grade = #{grades}, title = #{title} where id = #{id}
+        ]]>
     </update>
 </mapper>

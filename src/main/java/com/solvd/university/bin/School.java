@@ -1,13 +1,14 @@
 package com.solvd.university.bin;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement
 public class School {
     private Integer id, price;
     private String name;
-    private List<Grade> grades;
+    private List<Grade> grades = new ArrayList<>();
     private Title title;
 
     public School() {
@@ -53,14 +54,14 @@ public class School {
     }
 
     public String getGrades() {
-        for (int i = 0; i < grades.size(); i++) {
-            return "";
+        for (Grade grade : grades) {
+            return grade.getName();
         }
         return "";
     }
 
     public void setGrades(Grade grade) {
-        grades.add(grade);
+        this.grades.add(grade);
     }
 
     @Override

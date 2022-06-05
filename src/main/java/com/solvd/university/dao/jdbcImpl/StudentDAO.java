@@ -2,6 +2,7 @@ package com.solvd.university.dao.jdbcImpl;
 
 import com.solvd.university.bin.Student;
 import com.solvd.university.dao.IBaseDAO;
+import com.solvd.university.dao.IStudentDAO;
 import com.solvd.university.utils.connectionpool.ConnectionPool;
 import com.solvd.university.utils.connectionpool.DbException;
 
@@ -12,7 +13,7 @@ import java.sql.Statement;
 
 import static com.solvd.university.utils.Instantiation.instantiateStudent;
 
-public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
+public class StudentDAO extends AbstractDAO implements IStudentDAO {
 
     public static final String SELECT_STUDENT_ID = "SELECT * FROM Student WHERE Id = ?";
     public static final String DELETE_STUDENT_ID = "DELETE FROM Student WHERE Id = ?";
@@ -28,7 +29,7 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
     }
 
     @Override
-    public Student getEntityById(int id) {
+    public Student read(int id) {
 
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -51,7 +52,7 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
     }
 
     @Override
-    public void saveEntity(Student obj) {
+    public void create(Student obj) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(INSERT_STUDENT_ID,
@@ -82,7 +83,7 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
     }
 
     @Override
-    public void updateEntity(Student obj) {
+    public void update(Student obj) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(UPDATE_STUDENT_ID);
@@ -101,7 +102,7 @@ public class StudentDAO extends AbstractDAO implements IBaseDAO<Student> {
     }
 
     @Override
-    public void removeEntity(int id) {
+    public void delete(int id) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(DELETE_STUDENT_ID);

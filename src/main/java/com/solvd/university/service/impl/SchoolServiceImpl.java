@@ -2,9 +2,9 @@ package com.solvd.university.service.impl;
 
 import com.solvd.university.bin.School;
 import com.solvd.university.dao.jdbcImpl.SchoolDAO;
-import com.solvd.university.service.SchoolService;
+import com.solvd.university.service.IBaseService;
 
-public class SchoolServiceImpl implements SchoolService {
+public class SchoolServiceImpl implements IBaseService<School> {
 
     private SchoolDAO schoolDAO = new SchoolDAO();
 
@@ -12,12 +12,22 @@ public class SchoolServiceImpl implements SchoolService {
     }
 
     @Override
-    public School getSchool(int id) {
-        return schoolDAO.getEntityById(id);
+    public void createEntity(School entity) {
+        schoolDAO.create(entity);
     }
 
     @Override
-    public void saveSchool(School sch) {
-        schoolDAO.saveEntity(sch);
+    public School readEntity(int id) {
+        return schoolDAO.read(id);
+    }
+
+    @Override
+    public void updateEntity(School entity) {
+        schoolDAO.update(entity);
+    }
+
+    @Override
+    public void deleteEntity(int id) {
+        schoolDAO.delete(id);
     }
 }

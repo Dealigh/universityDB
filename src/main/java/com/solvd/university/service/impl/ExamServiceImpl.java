@@ -2,16 +2,31 @@ package com.solvd.university.service.impl;
 
 import com.solvd.university.bin.Exam;
 import com.solvd.university.dao.jdbcImpl.ExamDAO;
-import com.solvd.university.service.ExamService;
+import com.solvd.university.service.IBaseService;
 
-public class ExamServiceImpl implements ExamService {
+public class ExamServiceImpl implements IBaseService<Exam> {
     ExamDAO examDAO = new ExamDAO();
 
     public ExamServiceImpl() {
     }
 
     @Override
-    public Exam getExamId(int id) {
-        return examDAO.getEntityById(id);
+    public void createEntity(Exam entity) {
+        examDAO.create(entity);
+    }
+
+    @Override
+    public Exam readEntity(int id) {
+        return examDAO.read(id);
+    }
+
+    @Override
+    public void updateEntity(Exam entity) {
+        examDAO.update(entity);
+    }
+
+    @Override
+    public void deleteEntity(int id) {
+        examDAO.delete(id);
     }
 }

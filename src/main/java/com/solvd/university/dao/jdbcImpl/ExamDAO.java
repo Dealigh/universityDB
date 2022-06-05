@@ -1,7 +1,6 @@
 package com.solvd.university.dao.jdbcImpl;
 
 import com.solvd.university.bin.Exam;
-import com.solvd.university.dao.IBaseDAO;
 import com.solvd.university.dao.IExamDAO;
 import com.solvd.university.utils.connectionpool.ConnectionPool;
 import com.solvd.university.utils.connectionpool.DbException;
@@ -10,7 +9,7 @@ import java.sql.*;
 
 import static com.solvd.university.utils.Instantiation.instantiateExam;
 
-public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
+public class ExamDAO extends AbstractDAO implements IExamDAO {
 
     public static final String DELETE_EXAM_ID = "DELETE FROM exam WHERE Id = ?";
     public static final String SELECT_EXAM = "SELECT Exam "
@@ -29,7 +28,7 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
     }
 
     @Override
-    public Exam getEntityById(int id) {
+    public Exam read(int id) {
 
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -52,7 +51,7 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
     }
 
     @Override
-    public void saveEntity(Exam obj) {
+    public void create(Exam obj) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(INSERT_EXAM,
@@ -82,7 +81,7 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
     }
 
     @Override
-    public void updateEntity(Exam obj) {
+    public void update(Exam obj) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(UPDATE_EXAM);
@@ -101,7 +100,7 @@ public class ExamDAO extends AbstractDAO implements IBaseDAO<Exam> {
     }
 
     @Override
-    public void removeEntity(int id) {
+    public void delete(int id) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(DELETE_EXAM_ID);

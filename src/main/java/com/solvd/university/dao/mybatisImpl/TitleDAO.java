@@ -6,31 +6,32 @@ import org.apache.ibatis.session.SqlSession;
 
 import static com.solvd.university.utils.mybatisUtil.MyBatisUtil.*;
 
-public class TitleServiceImpl implements ITitleDAO {
+public class TitleDAO implements ITitleDAO {
 
-    private static final String TITLE_DAO = "ITitleDAO";
     private final SqlSession session = getSession();
 
+    private Title title;
 
-    public TitleServiceImpl() {
+    public TitleDAO() {
     }
 
     @Override
     public void create(Title entity) {
         createMapper(TITLE_DAO, entity);
     }
-    
+
     @Override
-    public Title read(String id) {
+    public Title read(int id) {
         getSession();
         if (session != null) {
             try {
-
+                String idExam = String.valueOf(id);
+                session.selectMap(TITLE_DAO + ".read", idExam);
             } finally {
                 session.close();
             }
-
         }
+        return title;
     }
 
     @Override

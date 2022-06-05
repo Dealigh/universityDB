@@ -46,7 +46,7 @@ public class Instantiation {
     public static Title instantiateTitle(ResultSet rs) throws SQLException {
         Title title = new Title();
         title.setId(rs.getInt("id"));
-        title.setSchoolId(rs.getInt("schoolId"));
+        title.setSchoolsId(rs.getInt("schoolId"));
         title.setName(rs.getString("name"));
         return title;
     }

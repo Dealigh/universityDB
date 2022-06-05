@@ -2,6 +2,7 @@ package com.solvd.university.dao.jdbcImpl;
 
 import com.solvd.university.bin.Grade;
 import com.solvd.university.dao.IBaseDAO;
+import com.solvd.university.dao.IGradeDAO;
 import com.solvd.university.utils.connectionpool.ConnectionPool;
 import com.solvd.university.utils.connectionpool.DbException;
 
@@ -12,7 +13,7 @@ import java.sql.Statement;
 
 import static com.solvd.university.utils.Instantiation.instantiateGrade;
 
-public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
+public class GradeDAO extends AbstractDAO implements IGradeDAO {
 
     public static final String SELECT_GRADE_ID = "SELECT * FROM Grade WHERE Id = ?";
     public static final String DELETE_GRADE_ID = "DELETE FROM Grade WHERE Id = ?";
@@ -24,11 +25,11 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
             + "SET Name = ?, Optional = ?, Title = ?, Internship = ? "
             + "WHERE Id = ?";
 
-    public GradeDAO(){
+    public GradeDAO() {
     }
 
     @Override
-    public Grade getEntityById(int id) {
+    public Grade read(int id) {
 
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -51,7 +52,7 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
     }
 
     @Override
-    public void saveEntity(Grade obj) {
+    public void create(Grade obj) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(INSERT_GRADE_ID,
@@ -82,7 +83,7 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
     }
 
     @Override
-    public void updateEntity(Grade obj) {
+    public void update(Grade obj) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(UPDATE_GRADE_ID);
@@ -101,7 +102,7 @@ public class GradeDAO extends AbstractDAO implements IBaseDAO<Grade> {
     }
 
     @Override
-    public void removeEntity(int id) {
+    public void delete(int id) {
         PreparedStatement st = null;
         try {
             st = getConnection().prepareStatement(DELETE_GRADE_ID);
