@@ -1,12 +1,14 @@
 package com.solvd.university.service.impl;
 
 import com.solvd.university.bin.School;
-import com.solvd.university.dao.jdbcImpl.SchoolDAO;
 import com.solvd.university.service.IBaseService;
+
+//import com.solvd.university.dao.jdbcImpl.SchoolsDAO;
+import com.solvd.university.dao.mybatisImpl.SchoolsDAO;
 
 public class SchoolServiceImpl implements IBaseService<School> {
 
-    private SchoolDAO schoolDAO = new SchoolDAO();
+    private SchoolsDAO schoolDAO = new SchoolsDAO();
 
     public SchoolServiceImpl() {
     }

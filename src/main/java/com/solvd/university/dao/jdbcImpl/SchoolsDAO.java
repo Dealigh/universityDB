@@ -2,7 +2,7 @@ package com.solvd.university.dao.jdbcImpl;
 
 import com.solvd.university.bin.School;
 import com.solvd.university.bin.Title;
-import com.solvd.university.dao.ISchoolDAO;
+import com.solvd.university.dao.ISchoolsDAO;
 import com.solvd.university.utils.connectionpool.ConnectionPool;
 import com.solvd.university.utils.connectionpool.DbException;
 
@@ -14,19 +14,19 @@ import java.sql.Statement;
 import static com.solvd.university.utils.Instantiation.instantiateSchool;
 import static com.solvd.university.utils.Instantiation.instantiateTitle;
 
-public class SchoolDAO extends AbstractDAO implements ISchoolDAO {
+public class SchoolsDAO extends AbstractDAO implements ISchoolsDAO {
 
-    public static final String SELECT_SCHOOL_ID = "SELECT * FROM Schools WHERE Id = ?";
+    public static final String SELECT_SCHOOL_ID = "SELECT * from Schools WHERE id = ?";
     public static final String DELETE_SCHOOL_ID = "DELETE FROM Schools WHERE Id = ?";
     public static final String UPDATE_SCHOOL_ID = "UPDATE Schools "
             + "SET Name = ?, Price = ?"
-            + "WHERE Id = ?";
+            + "WHERE id = ?";
     public static final String INSERT_SCHOOL_ID = "INSERT INTO Schools "
-            + "(Id, Name, Price)"
+            + "(Name, Price)"
             + "VALUES "
-            + "(?, ?, ?)";
+            + "(?, ?)";
 
-    public SchoolDAO() {
+    public SchoolsDAO() {
     }
 
     @Override
@@ -40,8 +40,7 @@ public class SchoolDAO extends AbstractDAO implements ISchoolDAO {
             st.setInt(1, id);
             rs = st.executeQuery();
             if (rs.next()) {
-                Title title = instantiateTitle(rs);
-                School school = instantiateSchool(rs, title);
+                School school = instantiateSchool(rs);
                 return school;
             }
             return null;
@@ -60,9 +59,8 @@ public class SchoolDAO extends AbstractDAO implements ISchoolDAO {
             st = getConnection().prepareStatement(INSERT_SCHOOL_ID,
                     Statement.RETURN_GENERATED_KEYS);
 
-            st.setInt(1, obj.getId());
-            st.setInt(3, obj.getPrice());
-            st.setString(2, obj.getName());
+            st.setString(1, obj.getName());
+            st.setInt(2, obj.getPrice());
 
             int rowsAffected = st.executeUpdate();
 

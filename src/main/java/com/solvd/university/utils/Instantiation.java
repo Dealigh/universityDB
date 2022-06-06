@@ -26,7 +26,7 @@ public class Instantiation {
         return grade;
     }
 
-    public static School instantiateSchool(ResultSet rs, Title title) throws SQLException {
+    public static School instantiateSchool(ResultSet rs) throws SQLException {
         School school = new School();
         school.setId(rs.getInt("id"));
         school.setPrice(rs.getInt("price"));

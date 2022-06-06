@@ -1,23 +1,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
-<mapper namespace="com.solvd.university.dao.ISchoolDAO">
+<mapper namespace="com.solvd.university.dao.ISchoolsDAO">
     <resultMap type="com.solvd.university.bin.School" id="SchoolResultMap" autoMapping="false">
         <id column="id" property="id"/>
-        <result column="price" property="price"/>
         <result column="name" property="name"/>
-        <collection property="grades" resultMap="com.solvd.university.dao.IGradeDAO.GradeResultMap"/>
-        <association property="title" resultMap="com.solvd.university.dao.ITitleDAO.TitleResultMap"/>
+        <result column="price" property="price"/>
     </resultMap>
 
-    <select id="read">
+    <select id="read" parameterType="int" resultMap="SchoolResultMap">
         <![CDATA[
-        SELECT * WHERE ID like #{id}
+        SELECT * from Schools WHERE id = #{id}
         ]]>
     </select>
 
     <insert id="create">
         <![CDATA[
-        insert values(null, #{price}, #{name}, #{grades}, #{title})
+        insert into Schools(name, price)
+        Values (#{name}, #{price})
         ]]>
     </insert>
 
@@ -29,7 +28,7 @@
 
     <update id="update">
         <![CDATA[
-        update * set price = #{price}, name = #{name}, grade = #{grades}, title = #{title} where id = #{id}
+        update * set name = #{name}, price = #{price} where id = #{id}
         ]]>
     </update>
 </mapper>

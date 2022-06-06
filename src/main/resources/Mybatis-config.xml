@@ -18,7 +18,7 @@
     <mappers>
         <mapper resource="mappers/ExamMapper.xml"/>
         <mapper resource="mappers/GradeMapper.xml"/>
-        <mapper resource="mappers/SchoolMapper.xml"/>
+        <mapper resource="mappers/SchoolsMapper.xml"/>
         <mapper resource="mappers/StudentMapper.xml"/>
         <mapper resource="mappers/TitleMapper.xml"/>
     </mappers>

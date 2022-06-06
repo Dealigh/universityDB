@@ -8,11 +8,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.Reader;
 
-import static com.solvd.university.utils.jaxb.JaxbUtils.PATH_NAME;
-
 public class MyBatisUtil {
 
-    public final static String MYBATIS_CONFIG = "Mybatis-config.xml"; //PATH_NAME +
+    public final static String MYBATIS_CONFIG = "Mybatis-config.xml";
     private static SqlSession session;
 
     public static SqlSession getSession() {
@@ -52,6 +50,7 @@ public class MyBatisUtil {
         if (session != null) {
             try {
                 session.update(link + ".update", entity);
+                session.commit();
             } finally {
                 session.close();
             }
@@ -63,6 +62,7 @@ public class MyBatisUtil {
         if (session != null) {
             try {
                 session.delete(link + ".delete", id);
+                session.commit();
             } finally {
                 session.close();
             }

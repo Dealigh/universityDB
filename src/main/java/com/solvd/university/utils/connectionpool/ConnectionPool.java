@@ -17,7 +17,7 @@ public class ConnectionPool {
     static Properties property = loadProperties();
     private static final String DATABASE = property.getProperty("nameDB");
     private static final String URL = property.getProperty("url") + "?useSSL=false";
-    private static final String USER = property.getProperty("user");
+    private static final String USER = property.getProperty("username");
     private static final String PASSWORD = property.getProperty("password");
     private static final int CONNECTIONS = Integer.parseInt(property.getProperty("connections"));
 

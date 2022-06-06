@@ -4,8 +4,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class School {
-    private Integer id, price;
+    private Integer id;
     private String name;
+    private int price;
 
     public School() {
 
@@ -13,8 +14,8 @@ public class School {
 
     public School(int id, int price, String name) {
         this.id = id;
-        this.price = price;
         this.name = name;
+        this.price = price;
     }
 
     public int getId() {
@@ -72,6 +73,6 @@ public class School {
 
     @Override
     public String toString() {
-        return "School [id= " + id + ", name= " + name + ", price= " + price + "]";
+        return "School [id = " + id + ", name = " + name + ", price = " + price + "]";
     }
 }

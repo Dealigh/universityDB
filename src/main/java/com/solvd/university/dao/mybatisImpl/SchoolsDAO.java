@@ -1,17 +1,17 @@
 package com.solvd.university.dao.mybatisImpl;
 
 import com.solvd.university.bin.School;
-import com.solvd.university.dao.ISchoolDAO;
+import com.solvd.university.dao.ISchoolsDAO;
 import org.apache.ibatis.session.SqlSession;
 
 import static com.solvd.university.utils.mybatisUtil.MyBatisUtil.*;
 
-public class SchoolDAO implements ISchoolDAO {
+public class SchoolsDAO implements ISchoolsDAO {
 
     private final SqlSession session = getSession();
     private School school = new School();
 
-    public SchoolDAO() {
+    public SchoolsDAO() {
     }
 
     @Override
@@ -24,10 +24,9 @@ public class SchoolDAO implements ISchoolDAO {
         getSession();
         if (session != null) {
             try {
-                String idExam = String.valueOf(id);
-                session.selectMap(SCHOOL_DAO + ".read", idExam);
+                school = session.selectOne(SCHOOL_DAO + ".read", id);
             } finally {
-                session.close();
+                //session.close();
             }
         }
         return school;
